@@ -8,3 +8,4 @@ dependencies:
       - mlflow
       - scikit-learn
       - pandas
+      
