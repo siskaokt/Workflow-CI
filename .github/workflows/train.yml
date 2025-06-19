@@ -37,6 +37,11 @@ jobs:
             --host 127.0.0.1 \
             --port 5000 &
 
+      - name: Prepare MLflow Experiment
+        run: |
+          mkdir -p mlruns
+          mlflow experiments create --experiment-name "Banknote Experiment" || true
+
       - name: Run MLflow project
         run: |
           mlflow run ./MLProject --env-manager=local
