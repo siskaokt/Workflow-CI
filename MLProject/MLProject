@@ -1,7 +1,9 @@
-name: Banknote_Experiment
+name: Banknote-Experiment
 
 conda_env: conda.yaml
 
 entry_points:
   main:
+    parameters:
+      param1: {type: int, default: 42}
     command: "python modelling.py"

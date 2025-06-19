@@ -1,9 +1,10 @@
 name: banknote_env
+channels:
+  - defaults
 dependencies:
-  - python=3.10.13
-  - pandas>=1.5
-  - scipy>=1.7
-  - scikit-learn
+  - python=3.10
   - pip
   - pip:
       - mlflow
+      - scikit-learn
+      - pandas
