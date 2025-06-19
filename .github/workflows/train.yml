@@ -44,6 +44,7 @@ jobs:
 
       - name: Run MLflow project
         run: |
+          cd MLProject
           mlflow run . --env-manager=local --experiment-name "Banknote Experiment"
           
       - name: Decode credentials.json
