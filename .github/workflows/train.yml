@@ -44,8 +44,8 @@ jobs:
 
       - name: Run MLflow project
         run: |
-          mlflow run ./MLProject --env-manager=local
-
+          mlflow run . --env-manager=local --experiment-name "Banknote Experiment"
+          
       - name: Decode credentials.json
         run: |
           echo "${{ secrets.CLIENT_SECRET_BASE64 }}" | base64 --decode > credentials.json
