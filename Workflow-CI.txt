@@ -1,0 +1,26 @@
+Nama: Krisdayanti Siska Oktavia Simbolon  
+Link GitHub Repo: https://github.com/siskaokt/Workflow-CI.git
+
+Deskripsi Singkat:  
+Repository ini berisi implementasi Workflow CI menggunakan GitHub Actions untuk menjalankan pipeline machine learning secara otomatis.
+
+Fungsi utama workflow:
+- Instalasi environment dan dependencies
+- Menjalankan training ML model (`modelling.py`)
+- Tracking eksperimen menggunakan MLflow
+- Upload hasil ke Google Drive (menggunakan PyDrive dan Service Account)
+
+Langkah-langkah dalam pipeline:
+1. Setup job dan Python 3.12.7
+2. Install dependencies dari `requirements.txt`
+3. Jalankan MLflow Tracking Server secara lokal
+4. Eksekusi skrip pelatihan (`modelling.py`)
+5. Dekode `credentials.json` dari GitHub Secrets
+6. Upload file hasil (JSON, PNG, HTML) ke Google Drive
+7. Logging status job setelah selesai
+
+**File Utama:**
+- `.github/workflows/ci.yml` — Konfigurasi GitHub Actions
+- `modelling.py` — Skrip pelatihan ML model
+- `upload_to_gdrive.py` — Skrip upload hasil ke Google Drive
+- `credentials.json` — (tidak disimpan di repo, di-dekode dari secrets)

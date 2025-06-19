@@ -1,0 +1,62 @@
+name: Workflow- CI
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  train-model:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up job
+        run: echo "Starting ML workflow for modelling.py"
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.12.7
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12.7
+
+      - name: Check Python environment
+        run: python --version
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools
+          pip install -r requirements.txt
+
+      - name: Start MLflow Server
+        run: |
+          nohup mlflow server \
+            --backend-store-uri sqlite:///mlflow.db \
+            --default-artifact-root ./mlruns \
+            --host 127.0.0.1 \
+            --port 5000 &
+
+      - name: Run MLflow project
+        run: |
+          mlflow run ./MLProject --env-manager=local
+
+      - name: Decode credentials.json
+        run: |
+          echo "${{ secrets.CLIENT_SECRET_BASE64 }}" | base64 --decode > credentials.json
+
+      - name: Upload to Google Drive
+        run: |
+          pip install pydrive
+          python upload_to_gdrive.py
+
+      - name: Post Set up Python 3.12.7
+        if: always()
+        run: echo "Cleaning up Python setup"
+
+      - name: Post Checkout
+        if: always()
+        run: echo "Repository checkout completed"
+
+      - name: Complete Job
+        run: echo "Workflow-CI completed"
